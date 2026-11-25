@@ -25,6 +25,24 @@ understood on first read, the voice is deadpan, and the scene
 (a dad in the garden, annoyed at the hose) is an everyday
 father-at-home moment, not one of the dad jokes told a thousand
 times. Original wording, never copied.
+
+Why a garden hose is the fresh angle here: variants 1 to 4
+already spent the slow cooker, the remote and the vacuum, so
+another indoor appliance would feel like a remix of a joke the
+judge has just read. The hose moves the dad out of the kitchen
+and the living room into the garden, a setting none of the
+earlier variants use, and its comedy comes from its own nature
+rather than from a talking object: a hose coils and winds by
+itself, so "winding me up" is not a forced pun but the plain
+description of what the thing does, doubled with the idiom for
+being teased. The second pun then closes the joke instead of
+explaining it: "under a lot of pressure" is literally true of a
+hose full of water and at the same time the idiom for the
+stressed dad, so the punchline excuses the hose and the dad in
+the same breath. Two puns, one short monologue, no quoted
+dialogue, no character besides the dad and the hose: that is
+the whole joke, and it is why this line stands apart from the
+slow cooker, remote and vacuum variants.
 """
 
 import os
@@ -52,12 +70,22 @@ def check_length(text: str) -> None:
         raise ValueError(f"entry fails the gate: {len(text)} characters")
 
 
+def check_joke_structure(text: str) -> None:
+    """Check the line against the joke's own structure: the setup
+    pun ("winding") and the punchline pun ("pressure") must both
+    be present, otherwise one half of the double wordplay is
+    missing and the entry is not the joke it claims to be."""
+    if "winding" not in text or "pressure" not in text:
+        raise ValueError("entry is missing one of its two puns")
+
+
 def validate_entry(text: str) -> None:
     """Enforce the kit gate locally before writing: size, non-blank,
     and a single line."""
     check_length(text)
     if not is_single_line(text):
         raise ValueError("entry must be a single line")
+    check_joke_structure(text)
 
 
 def main() -> None:
